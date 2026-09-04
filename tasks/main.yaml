@@ -1,0 +1,25 @@
+---
+
+- name: LOCALE
+  become: true
+  tags:
+    - locale
+  when: locale_active
+  block:
+
+    - name: LOCALE configure `/etc/locale.gen`
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/locale.gen.j2"
+        dest: /etc/locale.gen
+        owner: root
+        group: root
+        mode: "0644"
+      notify: LOCALE regenerate
+
+    - name: LOCALE configure `/etc/locale.conf`
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/locale.conf.j2"
+        dest: /etc/locale.conf
+        owner: root
+        group: root
+        mode: "0644"

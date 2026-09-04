@@ -1,0 +1,7 @@
+---
+
+- name: LOCALE regenerate
+  ansible.builtin.command:
+    cmd: locale-gen
+  become: true
+  changed_when: false
